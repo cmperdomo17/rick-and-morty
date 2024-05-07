@@ -8,17 +8,37 @@ function Characters() {
 
     // UseEffect hace la petición a la API (fetching) y almacena los datos en el estado characters
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://rickandmortyapi.com/api/character');
-                const data = await response.json();
-                setCharacters(data.results);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-    
-        fetchData();
+      // Función asíncrona para realizar el fetching de datos
+      const fetchData = async () => {
+        try {
+          // Realiza una petición GET a la API de Rick and Morty para obtener la lista de personajes
+          const response = await fetch(
+            "https://rickandmortyapi.com/api/character"
+          );
+          // Convierte la respuesta a formato JSON
+          const data = await response.json();
+
+          // Mapea cada personaje de la lista para obtener información adicional sobre su episodio
+          const charactersEpisode = await Promise.all(
+            data.results.map(async (character) => {
+              // Realiza una petición GET a la API para obtener información del primer episodio del personaje
+              const episodeResponse = await fetch(character.episode[0]);
+              // Convierte la respuesta del episodio a formato JSON
+              const episodeData = await episodeResponse.json();
+              // Crea un nuevo objeto con la información del personaje y el nombre del episodio
+              return { ...character, episode: episodeData.name };
+            })
+          );
+
+          // Actualiza el estado 'characters' con la lista de personajes y sus respectivos episodios
+          setCharacters(charactersEpisode);
+        } catch (error) {
+
+          console.error(error);
+        }
+      };
+
+      fetchData();
     }, []);
 
     return (
@@ -41,6 +61,9 @@ function Characters() {
                         status={character.status}
                         species={character.species}
                         gender={character.gender}
+                        location={character.location}
+                        origin={character.origin}
+                        episode={character.episode}
                     />
                 ))}
             </div>
