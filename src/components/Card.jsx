@@ -14,7 +14,7 @@ function Card ({id, name, status, species, type, gender, episode, origin, locati
                         <p className="text-lg font-semibold">{species}</p>
                         <Gender gender={gender} />
                     </div>
-                    <p className="text-base mt-6"><strong className="font-extrabold text-orange-200">Origin</strong>: {origin.name}</p>
+                    <p className="text-base mt-2 md:mt-6"><strong className="font-extrabold text-orange-200">Origin</strong>: {origin.name}</p>
                     <div className="flex flex-col mt-3">
                         <p className="font-extrabold text-orange-200">Last known location:</p>
                         <span className="text-base">{locationName}</span>
