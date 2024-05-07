@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div className="flex justify-center items-center h-screen flex-col gap-2">
-        <img src="../public/logo.png" alt="Rick and Morty Logo" className=' w-60' />
+        <img src="/logo.png" alt="Rick and Morty Logo" className=' w-60' />
         <h1 className='text-blue-200 text-5xl font-extrabold mb-14'>Rick and Morty API</h1>
         <Link to="/characters" className='text-2xl font-extrabold'>
           <button className='bg-blue-200 hover:bg-blue-300 text-stone-900 font-extrabold text-3xl font-sans py-2 px-6 rounded-full'>
