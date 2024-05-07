@@ -3,18 +3,22 @@ import Card from '../components/Card.jsx';
 import { Link } from 'react-router-dom';
 
 function Characters() {
-    // UseStat crea un estado para almacenar los personajes
+    // UseState crea un estado para almacenar los personajes
     const [characters, setCharacters] = useState([]);
 
     // UseEffect hace la petición a la API (fetching) y almacena los datos en el estado characters
     useEffect(() => {
-        fetch('rickandmortyapi-production-105f.up.railway.app')
-        // Convierte la respuesta en formato JSON
-        .then(response => response.json())
-        // Almacena los datos en la variable data
-        .then(data => {
-            setCharacters(data.results); // Almacena los personajes en el estado
-        });
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://rickandmortyapi.com/api/character');
+                const data = await response.json();
+                setCharacters(data.results);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        fetchData();
     }, []);
 
     return (
